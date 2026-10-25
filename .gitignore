@@ -20,3 +20,8 @@ yarn-debug.log*
 pnpm-debug.log*
 tmp/
 temp/
+
+# Archives
+*.zip
+*.crx
+
