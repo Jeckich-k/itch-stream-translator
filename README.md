@@ -1,21 +1,21 @@
 # Live Chat & Speech Translator (Twitch & YouTube)
 
-Расширение для браузера (Manifest V3), обеспечивающее автоматический перевод сообщений чата и экранных субтитров видео в реальном времени на Twitch и YouTube.
+A browser extension (Manifest V3) that provides automatic translation of chat messages and on‑screen video subtitles in real time on Twitch and YouTube.
 
-## Основные возможности
+## Key features
 
-- 💬 **Перевод чата в реальном времени**: автоматический перевод сообщений на Twitch (включая 7TV, BTTV, FFZ) и YouTube Live.
-- 🎙️ **Экранные субтитры поверх видео**: автоматический перевод распознанной речи с плавающим оверлеем на плеере.
-- ⏱️ **Регулировка скорости и длительности субтитров**: слайдер от 3 до 20 секунд + пресеты («Медленно», «Обычная», «Быстро») с двухстрочным буфером для комфортного чтения.
-- 🌐 **Выбор языковых направлений**: возможность переводить на любой выбранный язык (русский, английский, корейский, японский и др.) со всех или выборочных языков.
-- ⚡ **Умная очередь и защита от лимитов**: защита от блокировок Google Translate (HTTP 429) с автоматическим резервным endpoint.
+- 💬 **Real‑time chat translation**: automatic translation of messages on Twitch (including 7TV, BTTV, FFZ) and YouTube Live.
+- 🎙️ **On‑screen subtitles over video: automatic translation of recognized speech with a floating overlay on the player.
+- ⏱️ **Adjusting the speed and duration of subtitles**: a slider from 3 to 20 seconds + presets (“Slow”, “Normal”, “Fast”) with a two‑line buffer for comfortable reading.
+- 🌐 **Selecting language directions**: the ability to translate into any selected language (Russian, English, Korean, Japanese, etc.) from all or selected languages.
+- ⚡Smart queue and rate limit protection**: protection against Google Translate blocks (HTTP 429) with an automatic backup endpoint.
 
-## Установка расширения
+## Installing the extension
 
-1. Скачайте или клонируйте репозиторий:
+1. Download or clone the repository:
    ```bash
    git clone https://github.com/Jeckich-k/<repo-name>.git
    ```
-2. Откройте в браузере страницу расширений: `chrome://extensions/` (или `edge://extensions/`).
-3. Включите **Режим разработчика** (Developer mode) в правом верхнем углу.
-4. Нажмите **Загрузить распакованное** (Load unpacked) и выберите папку с проектом.
+2. Open the extensions page in your browser: `chrome://extensions/` (or `edge://extensions/`).
+3. Turn on **Developer mode** (Developer mode) in the upper-right corner.
+4. Click **Load unpacked** and select the project folder.
