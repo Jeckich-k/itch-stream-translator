@@ -1,0 +1,84 @@
+{
+    "server": {
+      "text": "Twitch API",
+      "online": "подключено",
+      "offline": "не подключено",
+      "offline_msg": "Нет подключения к Twitch",
+      "error": "Ошибка подключения",
+      "error_unexpected": "Неизвестная ошибка: {name}"
+    },
+    "twitch_api": {
+      "favorite": "Ошибка Twitch API favorite: {name}",
+      "followed": "Ошибка Twitch API followed: {name}",
+      "users": "Ошибка Twitch API users: {name}"
+    },
+    "auth": {
+      "twitch_auth": "Авторизация через Twitch",
+      "soon": "Скоро...",
+      "success": "Вы вошли как {name}",
+      "error": "Ошибка авторизации: {name}",
+      "error_twitch": "Ошибка авторизации Twitch: {name}",
+      "error_settings_post": "Ошибка сохранения настроек: {name}",
+      "error_apply_settings": "Ошибка сохранения настроек: {name}"
+    },
+    "profile": {
+      "logout": "Выход",
+      "logout_title": "Выйти из аккаунта",
+      "twitch_auth_error": "Ошибка авторизации Twitch: {errortxt}",
+      "logout_force": "Ключ доступа отозван, принудительный выход из аккаунта",
+      "logout_error": "Все данные были удалены из хранилища браузера",
+      "refresh": "Обновить список",
+      "refresh_title": "Обновить список трансляций",
+      "search_title": "Начать поиск",
+      "notify_update_list": "Список трансляций обновлен"
+    },
+    "search": {
+      "clear": "Поиск очищен",
+      "length": "Запрос должен содержать минимум 3 символа, сейчас введено: {length}",
+      "filter": "Ничего не найдено"
+    },
+    "favorite": {
+      "added": "{name} теперь в избранном списке",
+      "removed": "{name} теперь не в избранном списке",
+      "update_failed": "Не удалось обновить список избранных",
+      "error": "Непредвиденная ошибка: {name}"
+    },
+    "streams": {
+      "no_favorites": "Нет любимых стримеров в сети",
+      "no_followed": "Нет стримеров в сети",
+      "sort_field": "Фильтр по имени...",
+      "error": "Не удалось загрузить список трансляций",
+      "new_tab": "Открыть трансляцию {name} в новой вкладке",
+      "is_favorite_true": "Удалить из избранного списка {name}",
+      "is_favorite_false": "Добавить в избранный список {name}"
+    },
+    "allstreams": {
+      "success": "Трансляции успешно обновлены",
+      "error": "Ошибка обновления трансляций"
+    },
+    "theme": {
+      "dark": "Тёмная тема",
+      "light": "Светлая тема",
+      "dark_title": "Переключиться на светлую тему",
+      "light_title": "Переключиться на тёмную тему",
+      "dark_enabled": "Тёмная тема активирована",
+      "light_enabled": "Светлая тема активирована",
+      "dark_error": "Не удалось применить тёмную тему",
+      "light_error": "Не удалось применить светлую тему"
+    },
+    "notifications": {
+      "menu": "Уведомления",
+      "enabled": "Уведомления включены",
+      "disabled": "Уведомления отключены",
+      "enable_error": "Не удалось включить уведомления",
+      "disable_error": "Не удалось отключить уведомления",
+      "enable_title": "Включить уведомления",
+      "disable_title": "Отключить уведомления",
+      "notify_title": "{name} ✨ онлайн!"
+    },
+    "language": {
+      "changed": "Язык изменён на {language}",
+      "change_error": "Ошибка смены языка",
+      "lang_title": "Переключить на {language}"
+    }
+}

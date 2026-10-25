@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat & Speech Translator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo-box">
+            <img src="../icons/icon.png" alt="Logo" class="app-icon">
+            <div>
+                <h1 class="title">Chat & Speech Translator</h1>
+                <p class="subtitle">Twitch & YouTube</p>
+            </div>
+        </div>
+        <div id="status-indicator" class="status-badge status-on">Активен</div>
+    </div>
+
+    <!-- Главные тумблеры -->
+    <div class="card master-card">
+        <div class="switch-row">
+            <div>
+                <div class="switch-label">💬 Перевод чата</div>
+                <div class="sub-hint">Переводит сообщения чата</div>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" id="toggle-enabled" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="divider"></div>
+        <div class="switch-row">
+            <div>
+                <div class="switch-label">📺 Перевод речи / экрана</div>
+                <div class="sub-hint">Субтитры перевода прямо на видео</div>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" id="toggle-subtitles" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- На какой язык переводить -->
+    <div class="card">
+        <div class="section-title">На какой язык переводить</div>
+        <div class="target-select-container">
+            <select id="select-target-lang" class="custom-select target-select-main">
+                <option value="ru" selected>🇷🇺 Русский (по умолчанию)</option>
+                <option value="en">🇬🇧 Английский (English)</option>
+                <option value="ko">🇰🇷 Корейский (한국어)</option>
+                <option value="ja">🇯🇵 Японский (日本語)</option>
+                <option value="zh">🇨🇳 Китайский (中文)</option>
+                <option value="de">🇩🇪 Немецкий (Deutsch)</option>
+                <option value="fr">🇫🇷 Французский (Français)</option>
+                <option value="es">🇪🇸 Испанский (Español)</option>
+                <option value="it">🇮🇹 Итальянский (Italiano)</option>
+                <option value="pt">🇧🇷 Португальский (Português)</option>
+                <option value="tr">🇹🇷 Турецкий (Türkçe)</option>
+                <option value="pl">🇵🇱 Польский (Polski)</option>
+                <option value="uk">🇺🇦 Украинский (Українська)</option>
+                <option value="ar">🇸🇦 Арабский (العربية)</option>
+            </select>
+            <div class="target-quick-pills">
+                <button type="button" class="target-pill active" data-lang="ru">🇷🇺 Русский</button>
+                <button type="button" class="target-pill" data-lang="en">🇬🇧 English</button>
+                <button type="button" class="target-pill" data-lang="ko">🇰🇷 한국어</button>
+                <button type="button" class="target-pill" data-lang="ja">🇯🇵 日本語</button>
+                <button type="button" class="target-pill" data-lang="de">🇩🇪 Deutsch</button>
+                <button type="button" class="target-pill" data-lang="es">🇪🇸 Español</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- С каких языков переводить -->
+    <div class="card">
+        <div class="section-title">С каких языков переводить</div>
+        
+        <!-- Выбор исходных языков (множественный выбор) -->
+        <div class="source-langs-header">
+            <span class="sub-label">Множественный выбор:</span>
+            <div class="quick-btns">
+                <button type="button" id="btn-select-all" class="btn-chip" title="Выбрать все языки">Все</button>
+                <button type="button" id="btn-select-ru-only" class="btn-chip" title="Переводить только с русского">Только 🇷🇺</button>
+                <button type="button" id="btn-select-ko-only" class="btn-chip" title="Переводить только с корейского">Только 🇰🇷</button>
+                <button type="button" id="btn-deselect-all" class="btn-chip" title="Снять выбор со всех">Сбросить</button>
+            </div>
+        </div>
+
+        <div class="langs-grid" id="langs-checkboxes">
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="auto" checked>
+                <span class="checkmark"></span>
+                <span>🌐 Все языки (авто)</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="ru" checked>
+                <span class="checkmark"></span>
+                <span>🇷🇺 Русский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="ko" checked>
+                <span class="checkmark"></span>
+                <span>🇰🇷 Корейский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="en" checked>
+                <span class="checkmark"></span>
+                <span>🇺🇸 Английский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="ja" checked>
+                <span class="checkmark"></span>
+                <span>🇯🇵 Японский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="zh" checked>
+                <span class="checkmark"></span>
+                <span>🇨🇳 Китайский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="de" checked>
+                <span class="checkmark"></span>
+                <span>🇩🇪 Немецкий</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="fr" checked>
+                <span class="checkmark"></span>
+                <span>🇫🇷 Французский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="es" checked>
+                <span class="checkmark"></span>
+                <span>🇪🇸 Испанский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="it" checked>
+                <span class="checkmark"></span>
+                <span>🇮🇹 Итальянский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="pt" checked>
+                <span class="checkmark"></span>
+                <span>🇧🇷 Португальский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="tr" checked>
+                <span class="checkmark"></span>
+                <span>🇹🇷 Турецкий</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="pl" checked>
+                <span class="checkmark"></span>
+                <span>🇵🇱 Польский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="uk" checked>
+                <span class="checkmark"></span>
+                <span>🇺🇦 Украинский</span>
+            </label>
+            <label class="checkbox-container lang-item">
+                <input type="checkbox" name="source-lang" value="ar" checked>
+                <span class="checkmark"></span>
+                <span>🇸🇦 Арабский</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Скорость и время субтитров -->
+    <div class="card">
+        <div class="section-title">⏱️ Время показа субтитров</div>
+        <div class="speed-control-container">
+            <div class="speed-header-row">
+                <span class="speed-subtext">Длительность на экране:</span>
+                <span id="speed-value" class="speed-badge">8 сек</span>
+            </div>
+            <input type="range" id="slider-subtitle-speed" min="3" max="20" step="1" value="8" class="speed-slider">
+            <div class="speed-presets">
+                <button type="button" class="speed-btn" data-speed="12" title="12 секунд — максимум времени на чтение">🐢 Медленно (12с)</button>
+                <button type="button" class="speed-btn active" data-speed="8" title="8 секунд — стандартная скорость">⚡ Обычная (8с)</button>
+                <button type="button" class="speed-btn" data-speed="4" title="4 секунды — быстрое исчезновение">🐇 Быстро (4с)</button>
+            </div>
+            <div class="hint" style="margin-left: 0; margin-top: 5px;">
+                💡 Настройте, сколько секунд субтитры остаются на экране, чтобы успевать спокойно читать.
+            </div>
+        </div>
+    </div>
+
+    <!-- Формат отображения в чате -->
+    <div class="card">
+        <div class="section-title">Формат отображения в чате</div>
+        <div class="radio-group">
+            <label class="radio-container">
+                <input type="radio" name="display-mode" value="append" checked>
+                <span class="radio-mark"></span>
+                <span>Показывать рядом <code class="tag-preview" id="tag-preview-sample">[RU: перевод]</code></span>
+            </label>
+            <label class="radio-container">
+                <input type="radio" name="display-mode" value="replace">
+                <span class="radio-mark"></span>
+                <span>Заменять исходный текст сообщения</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Инструкция по переводу речи -->
+    <div class="card speech-guide">
+        <div class="section-title">🎙️ Как переводить то, что говорят на видео:</div>
+        <ol class="guide-steps">
+            <li>Включите субтитры на видео YouTube (нажмите клавишу <strong>C</strong> на клавиатуре или кнопку <strong>[CC]</strong> в плеере).</li>
+            <li>Расширение сразу переведет речь на русский и покажет субтитры на экране поверх видео!</li>
+        </ol>
+    </div>
+
+    <div class="footer">
+        <div class="stats-text">
+            Переведено: <strong id="stats-count">0</strong>
+        </div>
+        <button id="btn-clear-cache" class="btn-secondary" title="Сбросить кэш переводов">Сбросить кэш</button>
+    </div>
+
+    <script type="module" src="../scripts/popup.js"></script>
+</body>
+</html>
