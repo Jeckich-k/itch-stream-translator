@@ -1,84 +1,182 @@
 {
-    "server": {
-      "text": "Twitch API",
-      "online": "connected",
-      "offline": "disconnected",
-      "offline_msg": "Not connected to Twitch",
-      "error": "Connection error",
-      "error_unexpected": "Unexpected error: {name}"
+  "app": {
+    "title": "Chat & Speech Translator",
+    "subtitle": "Twitch & YouTube",
+    "status_on": "Active",
+    "status_off": "Disabled"
+  },
+  "switches": {
+    "chat_title": "💬 Chat Translation",
+    "chat_desc": "Translates live chat messages",
+    "speech_title": "📺 Speech & Subtitles",
+    "speech_desc": "On-screen translation subtitles on video"
+  },
+  "target_lang": {
+    "title": "Translate to language",
+    "pills": {
+      "ru": "🇷🇺 Russian",
+      "en": "🇬🇧 English",
+      "ko": "🇰🇷 한국어",
+      "ja": "🇯🇵 日本語",
+      "de": "🇩🇪 Deutsch",
+      "es": "🇪🇸 Español"
     },
-    "twitch_api": {
-      "favorite": "Twitch API favorite error: {name}",
-      "followed": "Twitch API followed error: {name}",
-      "users": "Twitch API users error: {name}"
-    },
-    "auth": {
-      "twitch_auth": "Authorization via Twitch",
-      "soon": "Soon...",
-      "success": "You are logged in as {name}",
-      "error": "Authorization failed: {name}",
-      "error_twitch": "Twitch auth error: {name}",
-      "error_settings_post": "Error saving settings: {name}",
-      "error_apply_settings": "Error applying settings: {name}"
-    },
-    "profile": {
-      "logout": "Log Out",
-      "logout_title": "Log out of your account",
-      "twitch_auth_error": "Twitch auth error: {errortxt}",
-      "logout_force": "Access key revoked, forced account logout",
-      "logout_error": "All data has been deleted from the browser storage",
-      "refresh": "Update the list",
-      "refresh_title": "Update the list of streamers",
-      "search_title": "Start search",
-      "notify_update_list": "Stream list has been updated"
-    },
-    "search": {
-      "clear": "Search cleared",
-      "length": "Search query must be at least 3 characters long, you have entered {length}",
-      "filter": "Nothing was found"
-    },
-    "favorite": {
-      "added": "{name} added to favorites list",
-      "removed": "{name} removed from favorites list",
-      "update_failed": "Failed to update favorites list",
-      "error": "Unexpected error: {name}"
-    },
-    "streams": {
-      "no_favorites": "No favorite online streamers",
-      "no_followed": "No online streamers",
-      "sort_field": "Sort by name...",
-      "error": "Failed to load streams data",
-      "new_tab": "Open {name} stream in a new tab",
-      "is_favorite_true": "Delete from favorites list {name}",
-      "is_favorite_false": "Add to favorites list {name}"
-    },
-    "allstreams": {
-      "success": "Streams updated successfully",
-      "error": "Failed to update streams"
-    },
-    "theme": {
-      "dark": "Dark theme",
-      "light": "Light theme",
-      "dark_title": "Switch to light theme",
-      "light_title": "Switch to dark theme",
-      "dark_enabled": "Dark theme enabled",
-      "light_enabled": "Light theme enabled",
-      "dark_error": "Failed to apply dark theme",
-      "light_error": "Failed to apply light theme"
-    },
-    "notifications": {
-      "menu": "Notifications",
-      "enabled": "Notifications enabled",
-      "disabled": "Notifications disabled",
-      "enable_error": "Failed to enable notifications",
-      "disable_error": "Failed to disable notifications",
-      "enable_title": "Enable notifications",
-      "disable_title": "Disable notifications",
-      "notify_title": "{name} ✨ is live!"
-    },
-    "language": {
-      "changed": "Language changed to {language}",
-      "change_error": "Failed to change language",
-      "lang_title": "Switch to {language}"
+    "options": {
+      "ru": "🇷🇺 Russian (Русский)",
+      "en": "🇬🇧 English (default)",
+      "ko": "🇰🇷 Korean (한국어)",
+      "ja": "🇯🇵 Japanese (日本語)",
+      "zh": "🇨🇳 Chinese (中文)",
+      "de": "🇩🇪 German (Deutsch)",
+      "fr": "🇫🇷 French (Français)",
+      "es": "🇪🇸 Spanish (Español)",
+      "it": "🇮🇹 Italian (Italiano)",
+      "pt": "🇧🇷 Portuguese (Português)",
+      "tr": "🇹🇷 Turkish (Türkçe)",
+      "pl": "🇵🇱 Polish (Polski)",
+      "uk": "🇺🇦 Ukrainian (Українська)",
+      "ar": "🇸🇦 Arabic (العربية)"
     }
+  },
+  "source_langs": {
+    "title": "Translate from languages",
+    "multi_select": "Multiple selection:",
+    "btn_all": "All",
+    "btn_all_title": "Select all languages",
+    "btn_ru_only": "Only 🇷🇺",
+    "btn_ru_only_title": "Translate only from Russian",
+    "btn_ko_only": "Only 🇰🇷",
+    "btn_ko_only_title": "Translate only from Korean",
+    "btn_reset": "Reset",
+    "btn_reset_title": "Deselect all",
+    "langs": {
+      "auto": "🌐 All languages (auto)",
+      "ru": "🇷🇺 Russian",
+      "ko": "🇰🇷 Korean",
+      "en": "🇺🇸 English",
+      "ja": "🇯🇵 Japanese",
+      "zh": "🇨🇳 Chinese",
+      "de": "🇩🇪 German",
+      "fr": "🇫🇷 French",
+      "es": "🇪🇸 Spanish",
+      "it": "🇮🇹 Italian",
+      "pt": "🇧🇷 Portuguese",
+      "tr": "🇹🇷 Turkish",
+      "pl": "🇵🇱 Polish",
+      "uk": "🇺🇦 Ukrainian",
+      "ar": "🇸🇦 Arabic"
+    }
+  },
+  "subtitles": {
+    "title": "⏱️ Subtitle duration",
+    "label": "Duration on screen:",
+    "sec": "{count} sec",
+    "preset_slow": "🐢 Slow (12s)",
+    "preset_slow_title": "12 seconds — maximum reading time",
+    "preset_normal": "⚡ Normal (8s)",
+    "preset_normal_title": "8 seconds — standard speed",
+    "preset_fast": "🐇 Fast (4s)",
+    "preset_fast_title": "4 seconds — quick fade",
+    "hint": "💡 Adjust how many seconds subtitles stay on screen so you can read comfortably."
+  },
+  "chat_format": {
+    "title": "Chat display format",
+    "show_beside": "Show alongside original",
+    "sample_word": "translation",
+    "replace_text": "Replace original message text"
+  },
+  "guide": {
+    "title": "🎙️ How to translate speech in video:",
+    "step1": "Turn on captions on the YouTube video (press <strong>C</strong> on keyboard or click <strong>[CC]</strong> in the player).",
+    "step2": "The extension will translate speech instantly and show subtitles directly over the video!"
+  },
+  "footer": {
+    "translated": "Translated:",
+    "clear_cache": "Clear cache",
+    "clear_cache_title": "Clear translation cache",
+    "cache_cleared": "Cleared!"
+  },
+  "original_prefix": "Original",
+  "server": {
+    "text": "Twitch API",
+    "online": "connected",
+    "offline": "disconnected",
+    "offline_msg": "Not connected to Twitch",
+    "error": "Connection error",
+    "error_unexpected": "Unexpected error: {name}"
+  },
+  "twitch_api": {
+    "favorite": "Twitch API favorite error: {name}",
+    "followed": "Twitch API followed error: {name}",
+    "users": "Twitch API users error: {name}"
+  },
+  "auth": {
+    "twitch_auth": "Authorization via Twitch",
+    "soon": "Soon...",
+    "success": "You are logged in as {name}",
+    "error": "Authorization failed: {name}",
+    "error_twitch": "Twitch auth error: {name}",
+    "error_settings_post": "Error saving settings: {name}",
+    "error_apply_settings": "Error applying settings: {name}"
+  },
+  "profile": {
+    "logout": "Log Out",
+    "logout_title": "Log out of your account",
+    "twitch_auth_error": "Twitch auth error: {errortxt}",
+    "logout_force": "Access key revoked, forced account logout",
+    "logout_error": "All data has been deleted from the browser storage",
+    "refresh": "Update the list",
+    "refresh_title": "Update the list of streamers",
+    "search_title": "Start search",
+    "notify_update_list": "Stream list has been updated"
+  },
+  "search": {
+    "clear": "Search cleared",
+    "length": "Search query must be at least 3 characters long, you have entered {length}",
+    "filter": "Nothing was found"
+  },
+  "favorite": {
+    "added": "{name} added to favorites list",
+    "removed": "{name} removed from favorites list",
+    "update_failed": "Failed to update favorites list",
+    "error": "Unexpected error: {name}"
+  },
+  "streams": {
+    "no_favorites": "No favorite online streamers",
+    "no_followed": "No online streamers",
+    "sort_field": "Sort by name...",
+    "error": "Failed to load streams data",
+    "new_tab": "Open {name} stream in a new tab",
+    "is_favorite_true": "Delete from favorites list {name}",
+    "is_favorite_false": "Add to favorites list {name}"
+  },
+  "allstreams": {
+    "success": "Streams updated successfully",
+    "error": "Failed to update streams"
+  },
+  "theme": {
+    "dark": "Dark theme",
+    "light": "Light theme",
+    "dark_title": "Switch to light theme",
+    "light_title": "Switch to dark theme",
+    "dark_enabled": "Dark theme enabled",
+    "light_enabled": "Light theme enabled",
+    "dark_error": "Failed to apply dark theme",
+    "light_error": "Failed to apply light theme"
+  },
+  "notifications": {
+    "menu": "Notifications",
+    "enabled": "Notifications enabled",
+    "disabled": "Notifications disabled",
+    "enable_error": "Failed to enable notifications",
+    "disable_error": "Failed to disable notifications",
+    "enable_title": "Enable notifications",
+    "disable_title": "Disable notifications",
+    "notify_title": "{name} ✨ is live!"
+  },
+  "language": {
+    "changed": "Language changed to {language}",
+    "change_error": "Failed to change language",
+    "lang_title": "Switch to {language}"
+  }
 }

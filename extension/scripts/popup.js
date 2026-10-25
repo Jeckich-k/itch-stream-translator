@@ -1,3 +1,5 @@
+import { loadTranslations, t, getCurrentLanguage, applyHtmlTranslations } from "./languages.js";
+
 document.addEventListener("DOMContentLoaded", async () => {
     const toggleEnabled = document.getElementById("toggle-enabled");
     const toggleSubtitles = document.getElementById("toggle-subtitles");
@@ -16,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sliderSubtitleSpeed = document.getElementById("slider-subtitle-speed");
     const speedValueBadge = document.getElementById("speed-value");
     const speedButtons = document.querySelectorAll(".speed-btn");
+    const langButtons = document.querySelectorAll(".lang-switch-btn");
 
     // 1. Загрузка настроек
     const settings = await chrome.storage.local.get([
@@ -26,8 +29,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         "sourceLangs",
         "koreanOnly",
         "displayMode",
-        "translatedCount"
+        "translatedCount",
+        "uiLanguage"
     ]);
+
+    // Инициализация языка интерфейса
+    const initialUiLang = settings.uiLanguage || (navigator.language?.toLowerCase().startsWith("ru") ? "ru" : "en") || "ru";
+    await loadTranslations(initialUiLang);
+    applyHtmlTranslations();
+    updateLangButtons(initialUiLang);
 
     const enabled = settings.enabled ?? true;
     const subtitlesEnabled = settings.subtitlesEnabled ?? true;
@@ -79,6 +89,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateStatusUI(enabled);
 
     // 2. Обработчики изменений
+    function updateLangButtons(lang) {
+        langButtons.forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.uiLang === lang);
+        });
+    }
+
+    async function switchUiLanguage(newLang) {
+        if (!newLang || newLang === getCurrentLanguage()) return;
+        await loadTranslations(newLang);
+        chrome.storage.local.set({ uiLanguage: newLang });
+        updateLangButtons(newLang);
+        applyHtmlTranslations();
+
+        // Обновляем динамические надписи в UI
+        updateStatusUI(toggleEnabled.checked);
+        const curDuration = parseInt(sliderSubtitleSpeed ? sliderSubtitleSpeed.value : 8, 10);
+        updateSpeedUI(curDuration);
+        const curTarget = selectTargetLang ? selectTargetLang.value : "ru";
+        updatePreview(curTarget);
+    }
+
+    langButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            switchUiLanguage(btn.dataset.uiLang);
+        });
+    });
+
     toggleEnabled.addEventListener("change", () => {
         const isEnabled = toggleEnabled.checked;
         chrome.storage.local.set({ enabled: isEnabled });
@@ -123,7 +160,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function updatePreview(tl) {
         if (tagPreviewSample) {
-            tagPreviewSample.textContent = `[${(tl || "ru").toUpperCase()}: перевод]`;
+            const sampleWord = t("chat_format.sample_word") || "перевод";
+            tagPreviewSample.textContent = `[${(tl || "ru").toUpperCase()}: ${sampleWord}]`;
         }
     }
 
@@ -204,7 +242,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Управление скоростью / временем показа субтитров
     function updateSpeedUI(duration) {
         if (speedValueBadge) {
-            speedValueBadge.textContent = `${duration} сек`;
+            speedValueBadge.textContent = t("subtitles.sec", { count: duration });
         }
         speedButtons.forEach(btn => {
             if (parseInt(btn.dataset.speed, 10) === parseInt(duration, 10)) {
@@ -242,9 +280,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         chrome.runtime.sendMessage({ action: "clearCache" }, (res) => {
             if (res?.success) {
                 statsCount.textContent = "0";
-                btnClearCache.textContent = "Очищено!";
+                btnClearCache.textContent = t("footer.cache_cleared");
                 setTimeout(() => {
-                    btnClearCache.textContent = "Сбросить кэш";
+                    btnClearCache.textContent = t("footer.clear_cache");
                 }, 1500);
             }
         });
@@ -252,10 +290,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function updateStatusUI(isOn) {
         if (isOn) {
-            statusIndicator.textContent = "Активен";
+            statusIndicator.textContent = t("app.status_on");
             statusIndicator.className = "status-badge status-on";
         } else {
-            statusIndicator.textContent = "Выключен";
+            statusIndicator.textContent = t("app.status_off");
             statusIndicator.className = "status-badge status-off";
         }
     }

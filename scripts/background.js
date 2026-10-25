@@ -118,13 +118,14 @@ const DEFAULT_SOURCE_LANGS = ["auto", "ru", "ko", "en", "ja", "zh", "de", "fr", 
 
 // Стандартные настройки
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.local.get(["enabled", "subtitlesEnabled", "subtitleDuration", "sourceLangs", "targetLang", "koreanOnly", "displayMode"], (res) => {
+    chrome.storage.local.get(["enabled", "subtitlesEnabled", "subtitleDuration", "sourceLangs", "targetLang", "koreanOnly", "displayMode", "uiLanguage"], (res) => {
         const defaults = {};
         if (res.enabled === undefined) defaults.enabled = true;
         if (res.subtitlesEnabled === undefined) defaults.subtitlesEnabled = true;
         if (res.subtitleDuration === undefined) defaults.subtitleDuration = 8;
         if (res.targetLang === undefined) defaults.targetLang = "ru";
         if (res.displayMode === undefined) defaults.displayMode = "append";
+        if (res.uiLanguage === undefined) defaults.uiLanguage = "ru";
 
         if (res.sourceLangs === undefined) {
             if (res.koreanOnly === true) {

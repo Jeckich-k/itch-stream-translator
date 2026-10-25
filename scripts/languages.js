@@ -1,10 +1,9 @@
 const translations = {};
-let currentLanguage = "en";
+let currentLanguage = "ru";
 
 export async function loadTranslations(lang) {
     try {
-        // console.log("loadTranslations start", lang);
-        if (!lang) lang = "en";
+        if (!lang) lang = "ru";
 
         if (translations[lang]) {
             currentLanguage = lang;
@@ -13,30 +12,29 @@ export async function loadTranslations(lang) {
 
         const url = chrome.runtime.getURL(`locales/${lang}.json`);
         const response = await fetch(url);
-        if (!response.ok) console.log(`Cannot load translation file: ${lang}.json`);
+        if (!response.ok) {
+            console.warn(`Cannot load translation file: ${lang}.json`);
+            return false;
+        }
 
         translations[lang] = await response.json();
         currentLanguage = lang;
-        // console.log("loadTranslations done", lang);
-
         return true;
     } catch (error) {
         console.warn(`loadTranslations error for lang "${lang}":`, error);
-        currentLanguage = "en";
+        currentLanguage = lang || "ru";
         return false;
     }
 }
 
 export function t(key, variables = {}) {
-    // console.log("t called with lang =", currentLanguage);
     let translation = key.split('.').reduce((obj, k) => obj?.[k], translations[currentLanguage]);
-    // console.log(`t("${key}")`, translation);
     if (!translation) {
-        translation = key.split('.').reduce((obj, k) => obj?.[k], translations['en']);
+        const fallback = currentLanguage === 'ru' ? 'en' : 'ru';
+        translation = key.split('.').reduce((obj, k) => obj?.[k], translations[fallback]);
     }
 
     if (!translation) {
-        console.warn(`Missing translation for key: "${key}"`);
         return key;
     }
 
@@ -45,4 +43,35 @@ export function t(key, variables = {}) {
 
 export function getCurrentLanguage() {
     return currentLanguage;
+}
+
+export function applyHtmlTranslations() {
+    // 1. Text elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        const val = t(key);
+        if (val && val !== key) {
+            el.innerHTML = val;
+        }
+    });
+
+    // 2. Title tooltips
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const key = el.dataset.i18nTitle;
+        const val = t(key);
+        if (val && val !== key) {
+            el.title = val;
+        }
+    });
+
+    // 3. Placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        const val = t(key);
+        if (val && val !== key) {
+            el.placeholder = val;
+        }
+    });
+
+    document.documentElement.lang = currentLanguage;
 }

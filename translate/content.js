@@ -13,16 +13,20 @@ let config = {
     subtitleDuration: 8,
     sourceLangs: DEFAULT_SOURCE_LANGS,
     targetLang: "ru",
-    displayMode: "append" // "append" или "replace"
+    displayMode: "append", // "append" или "replace"
+    uiLanguage: "ru"
 };
 
+const getOriginalLabel = () => (config.uiLanguage === "en" ? "Original" : "Оригинал");
+
 // Загружаем настройки из хранилища и только потом инициализируем перевод
-chrome.storage.local.get(["enabled", "subtitlesEnabled", "subtitleDuration", "sourceLangs", "targetLang", "koreanOnly", "displayMode"], (res) => {
+chrome.storage.local.get(["enabled", "subtitlesEnabled", "subtitleDuration", "sourceLangs", "targetLang", "koreanOnly", "displayMode", "uiLanguage"], (res) => {
     if (res.enabled !== undefined) config.enabled = res.enabled;
     if (res.subtitlesEnabled !== undefined) config.subtitlesEnabled = res.subtitlesEnabled;
     if (res.subtitleDuration !== undefined) config.subtitleDuration = parseInt(res.subtitleDuration, 10) || 8;
     if (res.targetLang !== undefined) config.targetLang = res.targetLang;
     if (res.displayMode !== undefined) config.displayMode = res.displayMode;
+    if (res.uiLanguage !== undefined) config.uiLanguage = res.uiLanguage;
     if (res.sourceLangs !== undefined && Array.isArray(res.sourceLangs) && res.sourceLangs.length > 0) {
         config.sourceLangs = res.sourceLangs;
         if (config.sourceLangs.includes("auto") && !config.sourceLangs.includes("ru")) {
@@ -56,6 +60,9 @@ chrome.storage.onChanged.addListener((changes, area) => {
         }
         if (changes.subtitleDuration !== undefined) {
             config.subtitleDuration = parseInt(changes.subtitleDuration.newValue, 10) || 8;
+        }
+        if (changes.uiLanguage !== undefined) {
+            config.uiLanguage = changes.uiLanguage.newValue;
         }
         if (changes.sourceLangs !== undefined) {
             const newLangs = changes.sourceLangs.newValue;
@@ -359,7 +366,7 @@ function handleYouTubeLive(renderer) {
 
         if (config.displayMode === "replace") {
             messageEl.dataset.originalText = originalText;
-            messageEl.setAttribute("title", `Оригинал: ${originalText}`);
+            messageEl.setAttribute("title", `${getOriginalLabel()}: ${originalText}`);
             messageEl.innerText = `${translated} `;
             const tag = document.createElement("span");
             tag.className = "chat-trans-badge";
@@ -371,7 +378,7 @@ function handleYouTubeLive(renderer) {
             badge.className = "chat-trans-badge";
             badge.style.cssText = "color: #ff9e22; margin-left: 6px; font-weight: 600; font-size: 0.95em;";
             badge.textContent = `[${targetBadge}: ${translated}]`;
-            badge.title = `Оригинал: ${originalText}`;
+            badge.title = `${getOriginalLabel()}: ${originalText}`;
             messageEl.appendChild(badge);
         }
     });
@@ -396,7 +403,7 @@ function handleYouTubeComment(commentEl) {
         badge.className = "yt-comment-trans-badge";
         badge.style.cssText = "color: #3ea6ff; margin-top: 5px; font-size: 0.95em; font-weight: 500; line-height: 1.4;";
         badge.textContent = `[${targetBadge}: ${translated}]`;
-        badge.title = `Оригинал: ${originalText}`;
+        badge.title = `${getOriginalLabel()}: ${originalText}`;
         commentEl.appendChild(badge);
     });
 }
@@ -435,7 +442,7 @@ function handleTwitch(messageDiv) {
         if (config.displayMode === "replace") {
             textSpans.forEach(s => {
                 s.dataset.originalText = s.innerText;
-                s.setAttribute("title", `Оригинал: ${s.innerText}`);
+                s.setAttribute("title", `${getOriginalLabel()}: ${s.innerText}`);
                 s.innerText = "";
             });
             lastSpan.innerText = translated;
@@ -453,7 +460,7 @@ function handleTwitch(messageDiv) {
             badge.className = "twitch-trans-badge";
             badge.style.cssText = "color: #a970ff; margin-left: 6px; font-weight: 600;";
             badge.textContent = `[${targetBadge}: ${translated}]`;
-            badge.title = `Оригинал: ${originalText}`;
+            badge.title = `${getOriginalLabel()}: ${originalText}`;
             if (typeof lastSpan.after === "function") {
                 lastSpan.after(badge);
             } else if (lastSpan.parentNode) {
